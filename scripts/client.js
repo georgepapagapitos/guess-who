@@ -9,10 +9,12 @@ people.sort(function () {
 });
 
 function onReady() {
+  $(document).on('click', 'img', checkMatch);
+
   $('body').prepend(
     `<h2>Click on: <span class="random-name">${randomName}</span></h2>`
   );
-  $(document).on('click', 'img', checkMatch);
+
   for (person of people) {
     $('body').append(`
       <div class="person-card">
@@ -30,6 +32,8 @@ function checkMatch() {
   let firstName = $(this).data('name');
   if (firstName === randomName) {
     alert('You found a match!');
+    randomName = people[Math.floor(Math.random() * people.length - 1)].name;
+    $('.random-name').text(randomName);
   } else {
     alert('Wrong person, try again.');
   }
