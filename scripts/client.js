@@ -2,14 +2,25 @@ console.log('Here are all the available people:', people);
 
 $(document).ready(onReady);
 
+let randomName = people[Math.floor(Math.random() * people.length - 1)].name;
+
 function onReady() {
-  let randomName = people[Math.floor(Math.random() * people.length - 1)].name;
   $('body').prepend(
     `<h2>Click on: <span class="random-name">${randomName}</span></h2>`
   );
+  $(document).on('click', 'img', checkMatch);
   for (person of people) {
     $('body').append(
-      `<div data-name=${person.name}><img src="https://github.com/${person.githubUsername}.png?size=250" alt="Profile image of ${person.name}"></div>`
+      `<div><img data-name=${person.name} src="https://github.com/${person.githubUsername}.png?size=250" alt="Profile image of ${person.name}"></div>`
     );
+  }
+}
+
+function checkMatch() {
+  let firstName = $(this).data('name');
+  if (firstName === randomName) {
+    alert('You found a match!');
+  } else {
+    alert('Wrong person try again.');
   }
 }
